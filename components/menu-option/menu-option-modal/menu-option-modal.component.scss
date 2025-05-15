@@ -1,0 +1,9 @@
+.ant-upload-text {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 128px;
+} 

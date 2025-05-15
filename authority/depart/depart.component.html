@@ -1,0 +1,143 @@
+<nz-card style="margin: 8px; border-radius: 6px">
+  <div style="display: flex; align-items: center">
+    <div style="display: flex; align-items: center">
+      <div>
+        <span>部门名称：</span>
+      </div>
+      <div>
+        <input
+          type="text"
+          [(ngModel)]="departName"
+          nz-input
+          placeholder="请输入部门名称"
+        />
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; padding-left: 15px">
+      <div>
+        <span>部门状态：</span>
+      </div>
+      <div>
+        <nz-select
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="请选择部门状态"
+          [(ngModel)]="selectedStatusValue"
+          style="width: 180px"
+        >
+          <nz-option nzLabel="启用" nzValue="1"></nz-option>
+          <nz-option nzLabel="禁用" nzValue="0"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div style="padding-left: 34px">
+      <button nz-button nzType="primary" (click)="search()">
+        <i nz-icon nzType="search"></i>
+        搜索
+      </button>
+    </div>
+    <div style="padding-left: 14px">
+      <button nz-button (click)="reset()">
+        <i nz-icon nzType="sync"></i>
+        重置
+      </button>
+    </div>
+  </div>
+</nz-card>
+
+<nz-card
+  style="
+    margin: 0px 8px 8px 8px;
+    height: calc(100vh - 246px);
+    border-radius: 6px;
+  "
+  nzTitle="部门管理"
+  [nzExtra]="extraTemplate"
+>
+  <nz-table
+    #expandTable
+    nzShowSizeChanger
+    [nzData]="listOfMapData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="true"
+    nzShowQuickJumper="true"
+    [nzPageSize]="pageSize"
+    [nzLoading]="loading"
+    nzShowSizeChanger="true"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+    <thead>
+      <tr>
+        <th nzAlign="center">部门名称</th>
+        <th nzAlign="center">部门状态</th>
+        <th nzAlign="center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of expandTable.data; track data) { @for (item of
+      mapOfExpandedData[data.deptId]; track item) { @if ((item.parent &&
+      item.parent.expand) || !item.parent) {
+      <tr>
+        <td
+          nzAlign="center"
+          [nzIndentSize]="item.level! * 20"
+          [nzShowExpand]="!!item.children"
+          [(nzExpand)]="item.expand"
+          (nzExpandChange)="
+            collapse(mapOfExpandedData[data.deptId], item, $event)
+          "
+        >
+          {{ item.name }}
+        </td>
+        <td nzAlign="center">
+          <nz-tag [nzColor]="item.status == 1 ? 'green' : 'red'">
+            {{ item.status == 1 ? "启用" : "禁用" }}
+          </nz-tag>
+        </td>
+        <td nzAlign="center">
+          <div style="text-align: center">
+            <a
+              nzType="link"
+              (click)="updateModel(item)"
+              nz-tooltip
+              nzTooltipTitle="编辑"
+            >
+              <span
+                class="svg001"
+                nz-icon
+                nzType="form"
+                nzTheme="outline"
+              ></span>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-tooltip
+              nzTooltipTitle="删除"
+              nzType="link"
+              style="color: red"
+              (click)="deleteBtn(item.deptId)"
+            >
+              <span
+                class="svg002"
+                nz-icon
+                nzType="delete"
+                nzTheme="outline"
+              ></span>
+            </a>
+          </div>
+        </td>
+      </tr>
+      } } }
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #extraTemplate>
+  <div nz-flex nzGap="middle">
+    <button nz-button nzType="primary" (click)="showModel()">
+      <i nz-icon nzType="plus-circle"></i>
+      新增
+    </button>
+  </div>
+</ng-template>

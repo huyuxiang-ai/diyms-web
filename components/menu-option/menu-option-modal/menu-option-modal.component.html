@@ -1,0 +1,108 @@
+<form [formGroup]="dataForm" nz-form>
+  <nz-row>
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >系统中文名称</nz-form-label
+        >
+        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
+          <input
+            nz-input
+            formControlName="nameCn"
+            id="nameCn"
+            name="nameCn"
+            nzPlaceHolder="请输入系统中文名称"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-row>
+  <nz-row>
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >系统英文名称</nz-form-label
+        >
+        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
+          <input
+            nz-input
+            formControlName="nameEn"
+            id="nameEn"
+            name="nameEn"
+            nzPlaceHolder="请输入系统英文名称"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-row>
+  <nz-row>
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">状态</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <nz-radio-group formControlName="status" id="status" name="status">
+            <label [nzValue]="1" nz-radio>启用</label>
+            <label [nzValue]="0" nz-radio>禁用</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-row>
+  <nz-row>
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >系统图片</nz-form-label
+        >
+        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
+          <nz-upload
+            nzListType="picture-card"
+            [nzShowUploadList]="false"
+            [nzBeforeUpload]="beforeUpload"
+          >
+            <ng-container *ngIf="!tempImageUrl">
+              <span nz-icon nzType="plus"></span>
+              <div class="ant-upload-text">选择图片</div>
+            </ng-container>
+          </nz-upload>
+
+          <div
+            *ngIf="tempImageUrl"
+            style="
+              margin-top: 16px;
+              border: 1px solid #d9d9d9;
+              padding: 8px;
+              text-align: center;
+              position: relative;
+            "
+          >
+            <img
+              [src]="tempImageUrl"
+              style="max-width: 100%; max-height: 200px"
+            />
+            <div *ngIf="imageFile" style="margin-top: 8px; color: #1890ff">
+              <span nz-icon nzType="info-circle" nzTheme="fill"></span>
+              图片将随表单一起提交
+            </div>
+            <div
+              *ngIf="!imageFile && dataForm.get('imagePath')?.value"
+              style="margin-top: 8px; color: #52c41a"
+            >
+              <span nz-icon nzType="check-circle" nzTheme="fill"></span>
+              已有图片
+            </div>
+          </div>
+
+          <input type="hidden" formControlName="imagePath" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-row>
+</form>
+
+<ng-template #combineTpl let-control>
+  <ng-container *ngIf="control.hasError('required')">必填项</ng-container>
+  <ng-container *ngIf="control.hasError('message')">
+    {{ control.errors.message }}
+  </ng-container>
+</ng-template>

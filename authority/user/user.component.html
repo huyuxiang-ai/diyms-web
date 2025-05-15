@@ -1,0 +1,81 @@
+<div class="normal-table-wrap">
+  <app-search-form
+    [formData]="searchForm"
+    (resetEmit)="reset()"
+    (searchValue)="search($event)"
+  ></app-search-form>
+  <nz-card
+    nzTitle="用户管理"
+    [nzExtra]="extraTemplate"
+    style="border-radius: 6px"
+  >
+    <app-ant-table
+      [tableConfig]="tableConfig"
+      [tableData]="userList"
+      [tableLoading]="tableConfig.loading"
+      [checkedCashArrayFromComment]="[]"
+      (changePageSize)="changePageSize($event)"
+      (changePageIndex)="changePageIndex($event)"
+    ></app-ant-table>
+  </nz-card>
+</div>
+
+<ng-template #extraTemplate>
+  <div nz-flex nzGap="middle">
+    <button nz-button nzType="primary" (click)="showModel()">
+      <i nz-icon nzType="plus-circle"></i>
+      新增
+    </button>
+    <button nz-button nzType="primary" (click)="deleteThreeMounthAgoUser()">
+      <i nz-icon nzType="delete"></i> 删除过期账号
+    </button>
+  </div>
+</ng-template>
+<ng-template #operationTpl let-row>
+  <a (click)="updateModel(row)" nz-tooltip nzTooltipTitle="编辑">
+    <span class="svg001" nz-icon nzType="form" nzTheme="outline"></span>
+  </a>
+  <nz-divider nzType="vertical"></nz-divider>
+  <a
+    (click)="deleteStore(row.userId)"
+    class="text-red-500 hover:text-red-500"
+    style="color: red"
+    nz-tooltip
+    nzTooltipTitle="删除"
+  >
+    <span class="svg002" nz-icon nzType="delete" nzTheme="outline"></span>
+  </a>
+  <nz-divider nzType="vertical"></nz-divider>
+
+  <a
+    nz-tooltip
+    nzTooltipTitle="修改密码"
+    (click)="resetPsw(row)"
+    style="display: inline-block; vertical-align: middle; padding-left: 10px"
+  >
+    <svg
+      t="1709537399927"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="5425"
+      width="20"
+      height="20"
+    >
+      <path
+        d="M636.16 447.9232c37.4272 0 67.712 33.0496 67.712 73.856v172.2624c0 40.7552-30.2848 73.8048-67.6864 73.8048h-248.2432c-37.376 0-67.6864-33.0496-67.6864-73.8048v-172.288c0-40.7296 30.3104-73.8304 67.6864-73.8304h248.2432z m-124.6464 64.3072c-35.328 0-64 27.392-64 61.2096 0 22.6048 17.5616 39.8848 36.608 50.5088v79.5136h54.8096v-79.5392c19.072-10.5984 36.608-27.904 36.608-50.4832-0.0256-33.792-28.672-61.184-64-61.184zM512 320.1024c-60.16 0-63.8208 50.5856-64 64v63.7952h-64.384v-57.6s0-134.4 128.128-134.4c128.1536 0 128.1536 134.4 128.1536 134.4v57.6H576v-63.7952c-0.128-13.184-3.84-64-64-64zM512 1024C229.248 1024 0.0768 794.8288 0.0768 512.0768 0.0768 229.376 229.248 0.1536 512 0.1536c91.136 0 176.6144 23.9616 250.7008 65.7152L810.3168 0l85.248 224.0512-223.488-32.768 52.7872-73.0368A445.312 445.312 0 0 0 512 64.1792c-247.3728 0-447.9232 200.5504-447.9232 447.9232 0 247.3984 200.5504 447.9488 447.9232 447.9488 247.3984 0 447.9232-200.5504 447.9232-447.9488 0-60.416-12.1088-117.9136-33.792-170.5216l59.1616-24.3456a510.1312 510.1312 0 0 1 38.6304 194.8672C1023.9232 794.8288 794.752 1024 512 1024z"
+        fill="#1B7AFF"
+        p-id="5426"
+      ></path>
+    </svg>
+  </a>
+</ng-template>
+<ng-template #statusTpl let-row>
+  <nz-tag [nzColor]="row.isActive == 0 ? 'red' : 'green'">{{
+    row.isActive == 1 ? "启用" : "禁用"
+  }}</nz-tag>
+</ng-template>
+
+<ng-template #role let-row>
+  <nz-tag [nzColor]="'blue'">{{ row.role_name }}</nz-tag>
+</ng-template>

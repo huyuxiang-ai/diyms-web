@@ -1,0 +1,45 @@
+<form nz-form [formGroup]="addEditForm">
+    <nz-form-item >
+ <nz-form-label nzFor="parentId"  [nzSm]="6" [nzXs]="24">归属部门</nz-form-label>
+  <nz-form-control [nzErrorTip]="combineTpl" [nzSm]="14" [nzXs]="24">
+    <nz-tree-select
+      id="parentId"
+      name="parentId"
+      formControlName="parentId"
+      [nzNodes]="nzModalData.optionDepartments"
+      nzPlaceHolder="请选择归属部门，无归属部门则不填"
+      nzShowSearch
+      nzDefaultExpandAll
+      nzAllowClear
+    >
+    </nz-tree-select>
+  </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="name" nzRequired [nzSm]="6" [nzXs]="24">部门名称</nz-form-label>
+    <nz-form-control [nzErrorTip]="combineTpl" [nzSm]="14" [nzXs]="24">
+      <input id="name" name="name" formControlName="name" nz-input placeholder="请输入部门名称" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="state" nzRequired [nzSm]="6" [nzXs]="24">部门状态</nz-form-label>
+    <nz-form-control [nzErrorTip]="combineTpl" [nzSm]="14" [nzXs]="24">
+      <nz-radio-group formControlName="status">
+        <label nz-radio [nzValue]="false">禁用</label>
+        <label nz-radio [nzValue]="true">启用</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+
+</form>
+
+<ng-template #combineTpl let-control>
+  @if (control.hasError('message')) {
+    {{ control.errors.message }}
+  }
+  @if (control.hasError('required')) {
+    必填项
+  }
+</ng-template>

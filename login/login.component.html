@@ -1,0 +1,59 @@
+<div
+  class="min-screen-full-height container relative"
+  [class.over-modal]="isOverModel"
+>
+  <div class="min-screen-full-height" nz-row style="padding: 0 5%">
+    <div
+      class="relative min-screen-full-height"
+      nz-col
+      [nzLg]="0"
+      [nzMd]="0"
+      [nzSm]="0"
+      [nzXl]="12"
+      [nzXs]="0"
+      [nzXXl]="10"
+    >
+      <div
+        class="full-height flex-coloum center"
+        style="align-items: flex-start"
+      ></div>
+    </div>
+    <div
+      class="relative min-screen-full-height center"
+      nz-col
+      [nzLg]="24"
+      [nzMd]="24"
+      [nzSm]="24"
+      [nzXl]="12"
+      [nzXs]="24"
+      [nzXXl]="14"
+    >
+      <div class="full-height flex-coloum center">
+        <nz-card [nzBordered]="isOverModel">
+          <ng-template appAd></ng-template>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="absolute screen-full-width p-l-16 p-r-16"
+    nz-row
+    nzJustify="space-between"
+    style="top: 16px"
+  >
+    @if (!isOverModel) {
+    <div nz-col></div>
+    } @if (isOverModel) {
+    <div nz-col></div>
+    }
+    <div nz-col>
+      <ng-template #checkedTemplate
+        ><img alt="" src="assets/images/login1/sun.svg"
+      /></ng-template>
+      <ng-template #unCheckedTemplate
+        ><img alt="" src="assets/images/login1/moon.svg"
+      /></ng-template>
+    </div>
+  </div>
+</div>

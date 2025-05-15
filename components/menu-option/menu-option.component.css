@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+/* *{
+  box-sizing: border-box;
+}
+
+body, html {
+   font-family: 'Roboto Slab', serif;
+    margin: 0;
+  width: 100%;
+height: 100%;
+    padding: 0;
+}
+
+body {
+  background-color: #D2DBDD;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* 纸质感背景样式 */
+.paper-background {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  background-image: 
+    linear-gradient(90deg, rgba(220, 220, 220, 0.3) 1px, transparent 1px),
+    linear-gradient(rgba(220, 220, 220, 0.3) 1px, transparent 1px);
+  background-size: 20px 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05) inset;
+  overflow: hidden;
+}
+
+.paper-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE763rbXNgovLHAGvKI7a1zgZFBUdTD4mRrwcUUCgmjHrhKDsEN2t8QUA6JtG0u6SPMzBqgeA6IkF0nCSHQcZWHQp6ls0vxzE4dDmDeSx4+m455Zlr38iEOfOHFpRgMl/djTT9/vuGjFfAqPKhb9EBG0X0nCYG+WXixP/206PX5nS2HwM8aWXiwM+PzZol1OEYr+HVNwZzbaNlowf7yXGYGgwOfC5BbeU+dOYGzqj5m/JFTdS9UgsMON4qjp0GiEYNEoVQKyT/xvnJdKVLCU23q01AtyaOgZaErZzj+NEeGQUZmZYWyg2bSl+2gzmSW7MGXvTDxLUe8jQZCK2tD6f5c1pMFP0FcgTKHt3/63bKKEN4CtgpBVFrZ+hPKIb+L0CX9gvXpKtlB+0z5CZKVIVIv7rL2oXzFErhgWjiOBWIXfN+wL8o34Gs9XmWn9Y5g3jr+SU35Y/RcPbFLqTPSAYrcDyKJjIQcUS6YJPkWGjwYTHKQ/RK+r3EdHz93JFC5SgDvYgJ7CcD8wQLzn0aaKQdEMYRB+2jVZ6dTMOBfYgtS7s7CpGIsKA2e+nLfVI87CsxJEVknFYGM0YsRmQPQ5JEJlA/EQ7BNL/zfET03tQJGBBcCx5EUCkQs1oZYt8mH2hHor8vwhz3zQehAfHhJIXBtLtSSaBdYk8J9kaU4vvvPej2dZv5gPUTvK6IFbwErMYQJT8gg8Bo1u1SUzwCZq+kYpLKyQ2+c3FKAZPG9q9YzfJHm4pYWXVQXl/YzZ9RStdZ2aDwWLxgLFtVDHMD6bQgN1g2aWh0yDu/alVPyuLK/V+yBZHMvRDawR0N7niP2BD1POjYb4XQGbyyEv8VY8CXlG2y/rPvYIZkMgfTrP7SFsdKRUFBjYGC9Td4HzcOcbIH7oG/BbQEKcILFvEpjNOG4R7Yh08v7j/wKtAI/XQxCeblDJfdxOgR27GJSdAJ4GTgK7AT6J4DH7BbS+KJoHvWUzBGs/XJjpHAK0A/8DvQD4I6QZoAOwP/iMwK7ID/ZuMh+0p6KFQIbATeCQYCr4KHgBnAJ8ALwGHgGCq4B5wEfgGcqTqAbwRnUMkj4BngLOoBPge+QT3AReASqgKuAdeBO8D3KJRnLUJHXgAAAABJRU5ErkJggg==");
+  opacity: 0.05;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center; /* 水平居中 */
+    -webkit-justify-content: center;
+    align-items: center; /* 垂直居中 */
+    -webkit-align-items: center;
+    max-width: 1520px;
+    height: 100vh; /* 设置容器高度为视口高度 */
+    margin: 0 auto; /* 容器本身水平居中 */
+}
+
+/* 移除静态背景图片定义，现在通过内联样式动态设置 */
+/* .card--1 .card__img, .card--1 .card__img--hover {
+    background-image: url('https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+}
+
+.card--2 .card__img, .card--2 .card__img--hover {
+    background-image: url('https://images.pexels.com/photos/307008/pexels-photo-307008.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+} */
+
+.card__like {
+    width: 18px;
+}
+
+.card__clock {
+    width: 15px;
+  vertical-align: middle;
+    fill: #1890ff;
+}
+.card__time {
+    font-size: 12px;
+    color: #1890ff;
+    vertical-align: middle;
+    margin-left: 5px;
+    padding: 4px;
+}
+
+.card__clock-info {
+    float: right;
+}
+
+.card__img {
+  visibility: hidden; /* 恢复为隐藏状态 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 335px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card__info-hover {
+    position: absolute;
+    padding: 16px;
+  width: 100%;
+  opacity: 0;
+  top: 0;
+}
+
+.card__img--hover {
+  transition: 0.2s all ease-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  position: absolute;
+  height: 335px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  top: 0;
+}
+.card {
+  margin-right: 48px;
+  transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+  background-color: #fff;
+    width: 33.3%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0,0.1);
+}
+.card:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.10, 1.10);
+}
+
+.card__info {
+z-index: 2;
+  background-color: #fff;
+  border-bottom-left-radius: 12px;
+border-bottom-right-radius: 12px;
+   padding: 16px 24px 10px 24px;
+}
+
+.card__category {
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 500;
+  color: #868686;
+}
+
+.card__title {
+    margin-top: 5px;
+    font-size: 19px;
+    margin-bottom: 10px;
+    font-family: 'Roboto Slab', serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card__title svg {
+    margin-top: 4px; /* 向下移动图标 */
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.card__title svg:hover {
+    opacity: 1;
+}
+
+.card__by {
+    font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+}
+
+.card__author {
+    font-weight: 600;
+    text-decoration: none;
+    color: #1890ff;
+}
+
+.card:hover .card__img--hover {
+  height: 100%;
+  opacity: 0.4; /* 悬浮时透明度调高为0.7（原为0.3） */
+}
+
+.card:hover .card__info {
+    background-color: transparent;
+    position: relative;
+}
+
+.card:hover .card__info-hover {
+    opacity: 1;
+}
+
+/* 添加按钮卡片样式 */
+.card--add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* 将背景改为透明 */
+  transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: none; /* 移除阴影 */
+  width: 15%; /* 减小宽度，原来是33.3% */
+  margin-left: 20px; /* 添加左边距，与其他卡片保持一定距离 */
+}
+
+.add-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+}
+
+.add-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: transparent; /* 将背景改为透明 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 2px dashed #1890ff;
+  transition: all 0.3s ease;
+}
+
+.plus-icon {
+  font-size: 40px;
+  color: #1890ff;
+  font-weight: 300;
+}
+
+.add-title {
+  font-family: 'Roboto Slab', serif;
+  color: #1890ff;
+  margin: 0;
+}
+
+.card--add:hover {
+  cursor: pointer;
+  box-shadow: none; /* 悬停时也不显示阴影 */
+  transform: scale(1.10, 1.10);
+}
+
+.card--add:hover .add-button {
+  background-color: rgba(173, 125, 82, 0.2); /* 悬停时使用半透明背景 */
+  border: 2px solid #1890ff;
+}
+
+.card--add:hover .plus-icon {
+  color: #1890ff; /* 保持原色 */
+}
+
+.card--add:hover .add-title {
+  color: #1890ff; /* 保持原色 */
+}
+
+/* 最后一个卡片不需要右边距 */
+.card:last-child {
+  margin-right: 0;
+}
+
+/* 上传图片相关样式 */
+:host ::ng-deep .ant-upload.ant-upload-select-picture-card {
+  width: 100%;
+  height: 120px;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .ant-modal-body {
+  padding: 24px;
+}
+
+:host ::ng-deep nz-input {
+  margin-bottom: 16px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .delete-button {
+  opacity: 1;
+}
+
+.card__time svg {
+  transition: transform 0.3s ease;
+}
+
+.card__time:hover svg {
+  transform: scale(1.2);
+}

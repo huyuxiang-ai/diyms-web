@@ -1,0 +1,70 @@
+<div style="border-radius: 3px; padding-bottom: 10px">
+  <nz-card [nzTitle]="title" style="border-radius: 6px;">
+    <form *ngIf="_dataForm.length" [nzLayout]="'inline'" [formGroup]="searchForm" nz-form>
+      <ng-container *ngFor="let item of _dataForm; index as index">
+        <div [nzGutter]="8" nz-row class="w-full">
+          <!-- 表单控件 -->
+          <div *ngFor="let data of item" [nzSpan]="item.length === 3 ? 6 : item.length === 2 ? 8 : 12" [hidden]="index > 0 && !isCollapse" nz-col>
+            <nz-form-item class="flex-auto">
+              <nz-form-label [nzFor]="data.name" class="w-2/7">
+                {{ data.name }}
+              </nz-form-label>
+              <nz-form-control>
+                <ng-container [ngSwitch]="data.type">
+                  <nz-date-picker *ngSwitchCase="'date'" [formControlName]="data.controlName" [nzPlaceHolder]="data!.placeholder ? data.placeholder : ''" class="w-full"></nz-date-picker>
+                  <nz-date-picker *ngSwitchCase="'year'" [formControlName]="data.controlName" [nzPlaceHolder]="data!.placeholder ? data.placeholder : ''" class="w-full" nzMode="year"></nz-date-picker>
+                  <nz-range-picker *ngSwitchCase="'rangeDate'" [formControlName]="data.controlName" [nzDisabledDate]="data.disabledDate" class="w-full"></nz-range-picker>
+                  <nz-range-picker *ngSwitchCase="'rangeMonth'" [formControlName]="data.controlName" class="w-full" nzMode="month"></nz-range-picker>
+                  <nz-select *ngSwitchCase="'multiSelect'" [formControlName]="data.controlName" [nzPlaceHolder]="data!.placeholder ? data.placeholder : ''" nzMode="multiple">
+                    <nz-option *ngFor="let option of data.optionList!" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                  </nz-select>
+
+                  <nz-select
+                    *ngSwitchCase="'select'"
+                    [formControlName]="data.controlName"
+                    [nzOptions]="data.optionList!"
+                    [nzPlaceHolder]="data!.placeholder ? data.placeholder : ''"
+                    nzShowSearch
+                    nzAllowClear
+                    style="width: 150px"
+                  ></nz-select>
+                  <nz-tree-select
+                    *ngSwitchCase="'treeSelect'"
+                    [formControlName]="data.controlName"
+                    [nzPlaceHolder]="data!.placeholder ? data.placeholder : ''"
+                    [nzNodes]="data.treeList || []"
+                    nzShowSearch
+                    nzAllowClear
+                    style="width: 100%"
+                  ></nz-tree-select>
+                  <input *ngSwitchDefault [formControlName]="data.controlName" [placeholder]="data?.placeholder ? data.placeholder : ''" [attr.id]="data.name" nz-input />
+                </ng-container>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <!-- 自动填充空白列，确保布局均匀 -->
+          <div *ngIf="item.length < 2" [nzSpan]="6 * (3 - item.length)" nz-col></div>
+
+          <!-- 搜索和重置按钮 -->
+          <div [nzSpan]="5" [nzOffset]="1" [hidden]="index !== 0" nz-col style="display: flex; justify-content: flex-start">
+            <button (click)="search()" nz-button nzType="primary">
+              <i nz-icon nzType="search"></i>
+              搜索
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button (click)="reset()" nz-button nzType="default">
+              <i nz-icon nzType="sync"></i>
+              重置
+            </button>
+            <a *ngIf="_dataForm.length > 1" (click)="isCollapse = !isCollapse" class="ml-5">
+              <span *ngIf="isCollapse === false" class="text-xs select-none">更多</span>
+              <span *ngIf="isCollapse === true" class="text-xs select-none">收起</span>
+              <i [nzType]="isCollapse ? 'up' : 'down'" nz-icon></i>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </nz-card>
+</div>

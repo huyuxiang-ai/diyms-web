@@ -1,0 +1,26 @@
+<form class="form-user" nz-form [formGroup]="addEditForm" nzLayout="inline">
+  <nz-row >
+    <!-- 角色名 -->
+    <nz-col nzFlex="2" style="padding-left: 30px;">
+      <nz-form-item>
+        <nz-form-label nzFor="name" nzRequired [nzSm]="8" [nzXs]="24">角色名</nz-form-label>
+        <nz-form-control nzErrorTip="请输入角色名">
+          <input id="name" name="name" formControlName="name" nz-input placeholder="请输入角色名" style="width: 180px;"/>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <!-- 状态 -->
+    <nz-col nzFlex="5" style="padding-left: 60px;">
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>状态</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="status" id="status" name="status">
+            <label [nzValue]='1' nz-radio>启用</label>
+            <label [nzValue]='0' nz-radio>禁用</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</form>

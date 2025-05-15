@@ -1,0 +1,166 @@
+<form nz-form [formGroup]="menuForm">
+  <nz-row>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">上级菜单</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-tree-select
+            [nzNodes]="modalData.optionMenus"
+            [nzExpandedKeys]="expandKeys"
+            nzShowSearch
+            nzPlaceHolder="无上级菜单则不填！"
+            formControlName="parentId"
+          ></nz-tree-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >菜单名称</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入菜单名称!">
+          <input nz-input type="text" formControlName="menuName" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >菜单图标</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择菜单图标!">
+          <nz-input-group [nzPrefix]="prefixTemplate" [nzAddOnAfter]="selIcon">
+            <input
+              nz-input
+              nz-popover
+              nzType="primary"
+              nzPopoverTrigger="click"
+              nzPopoverPlacement="bottom"
+              [(nzPopoverVisible)]="visible"
+              type="text"
+              formControlName="icon"
+              readonly
+            />
+          </nz-input-group>
+          <ng-template #prefixTemplate>
+            <div *ngIf="this.menuForm.value.icon">
+              <span class="icon">
+                <img
+                  width="10px"
+                  height="16px"
+                  [src]="iconUrl + this.menuForm.value.icon + '.svg'"
+                />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template #selIcon>
+            <app-icon-sel
+              [visible]="selIconVisible"
+              (selIcon)="seledIcon($event)"
+            ></app-icon-sel>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <ng-template #contentTemplate>
+        <div class="icon-select">
+          <div class="icon-search">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input
+                id="icon-search"
+                type="text"
+                nz-input
+                placeholder="请输入图标名称"
+                (keyup)="filterIcon()"
+              />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <span nz-icon nzType="search"></span>
+            </ng-template>
+          </div>
+          <div class="icon-list">
+            <div
+              *ngFor="let item of filterIconList"
+              (click)="selectedIcon(item)"
+            >
+              <span class="icon">
+                <img
+                  width="20px"
+                  height="40px"
+                  [src]="iconUrl + item + '.svg'"
+                />
+              </span>
+              <span class="text">{{ item }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>排序</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入排序!">
+          <nz-input-number
+            [nzMin]="0"
+            [nzMax]="99"
+            [nzStep]="1"
+            formControlName="sort"
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >路由地址</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择路由地址!">
+          <input nz-input type="text" formControlName="path" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >侧边可见</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-radio-group formControlName="visible">
+            <label nz-radio [nzValue]="'1'">是</label>
+            <label nz-radio [nzValue]="'0'">否</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >菜单状态</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-radio-group formControlName="status">
+            <label nz-radio [nzValue]="'1'">启用</label>
+            <label nz-radio [nzValue]="'0'">禁用</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="12"></div>
+  </nz-row>
+</form>
+
+<div *nzModalFooter>
+  <div class="middle">
+    <nz-space [nzSize]="10">
+      <button *nzSpaceItem nz-button nzType="default" (click)="cancel()">
+        取消
+      </button>
+      <button *nzSpaceItem nz-button nzType="primary" (click)="handleOk()">
+        确定
+      </button>
+    </nz-space>
+  </div>
+</div>

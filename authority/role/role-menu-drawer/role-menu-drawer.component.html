@@ -1,0 +1,58 @@
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <h3 style="padding-bottom: 20px" nz-typography>
+      菜单授权/当前角色
+      <span style="color: red">{{ role.name }}</span>
+    </h3>
+
+    <nz-spin [nzSpinning]="isSpinning">
+      <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
+        <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
+          <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
+          <nz-tree-node-checkbox
+            [nzChecked]="checklistSelection.isSelected(node)"
+            (nzClick)="leafItemSelectionToggle(node)"
+          >
+          </nz-tree-node-checkbox>
+          <nz-tree-node-option (nzClick)="leafItemSelectionToggle(node)">
+            {{ node.name }}
+          </nz-tree-node-option>
+          <div *ngIf="node.menuPermission && node.menuPermission.length > 0">
+            <label
+              nz-checkbox
+              *ngFor="let perm of node.menuPermission"
+              [ngModel]="role.permission.includes(perm.id)"
+              (ngModelChange)="permissionChange($event, perm)"
+            >
+              {{ perm.name }}
+            </label>
+          </div>
+        </nz-tree-node>
+
+        <nz-tree-node
+          *nzTreeNodeDef="let node; when: hasChild"
+          nzTreeNodePadding
+        >
+          <nz-tree-node-toggle>
+            <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+          </nz-tree-node-toggle>
+          <nz-tree-node-checkbox
+            [nzChecked]="descendantsAllSelected(node)"
+            [nzIndeterminate]="descendantsPartiallySelected(node)"
+            (nzClick)="itemSelectionToggle(node)"
+          >
+          </nz-tree-node-checkbox>
+          <nz-tree-node-option (nzClick)="itemSelectionToggle(node)">
+            {{ node.name }}
+          </nz-tree-node-option>
+        </nz-tree-node>
+      </nz-tree-view>
+    </nz-spin>
+  </div>
+
+  <div nz-col nzSpan="24" style="margin-top: 16px">
+    <button nz-button nzType="primary" (click)="save()" [disabled]="isSpinning">
+      保存
+    </button>
+  </div>
+</div>

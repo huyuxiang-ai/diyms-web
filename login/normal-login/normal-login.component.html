@@ -1,0 +1,77 @@
+<div style="padding-left: 33px; padding-bottom: 30px">
+  <span style="font-size: 28px; font-weight: 500; padding-left: 57px"
+    >智能堆场管控系统</span
+  >
+</div>
+<div>
+  <nz-tabset>
+    <nz-tab nzTitle="账号密码登录">
+      <div class="full-with">
+        <form
+          class="login-form-wrap"
+          nz-form
+          [formGroup]="validateForm"
+          (ngSubmit)="submitForm()"
+        >
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入用户名!">
+              <input
+                type="text"
+                formControlName="userName"
+                nz-input
+                nzSize="large"
+                placeholder="用户名"
+                [placeholder]=""
+              />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入密码!">
+              <nz-input-group [nzSize]="'large'" [nzSuffix]="suffixTemplate">
+                <input
+                  autocomplete="on"
+                  formControlName="password"
+                  nz-input
+                  placeholder="密码"
+                  [placeholder]=""
+                  [type]="passwordVisible ? 'text' : 'password'"
+                />
+              </nz-input-group>
+              <ng-template #suffixTemplate>
+                <i
+                  nz-icon
+                  [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                  (click)="passwordVisible = !passwordVisible"
+                ></i>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- 验证码组件 -->
+          <div *ngIf="showCaptcha" class="captcha-container">
+            <div class="captcha-header">
+              <span>登录失败，请输入验证码</span>
+              <a (click)="refreshCaptcha()" class="refresh-captcha">
+                <i nz-icon nzType="reload" nzTheme="outline"></i> 刷新
+              </a>
+            </div>
+            <app-addition-captcha
+              #captchaComponent
+              formControlName="captcha"
+            ></app-addition-captcha>
+          </div>
+
+          <button
+            class="full-with m-t-15 btn"
+            nz-button
+            nzSize="large"
+            [nzType]="'primary'"
+            [nzLoading]="loginLoading"
+          >
+            登 录
+          </button>
+        </form>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+</div>

@@ -1,0 +1,86 @@
+<form [formGroup]="dataForm" nz-form>
+  <nz-row>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>账号</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+          <input nz-input formControlName="username" id="username" name="username" nzPlaceHolder="请输入用户名称" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="combineTpl">
+          <nz-radio-group formControlName="isActive" id="isActive" name="isActive">
+            <label [nzValue]="1" nz-radio>启用</label>
+            <label [nzValue]="0" nz-radio>禁用</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-row>
+  <nz-row>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>姓名</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="combineTpl">
+          <input nz-input formControlName="name" id="name" name="name" nzPlaceHolder="请输入姓名" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>角色</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+          <nz-select formControlName="roleId" id="roleId" name="roleId" nzMode="multiple" nzPlaceHolder="请选择角色">
+            <nz-option *ngFor="let o of roleOptionList" [nzValue]="o.roleId" [nzLabel]="o.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+  </nz-row>
+  <nz-row>
+    <div *ngIf="modalData.method == 'add'" nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>密码</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="combineTpl">
+          <nz-input-group [nzSuffix]="suffixTemplate">
+            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="请输入密码" formControlName="password" id="password" name="password" />
+          </nz-input-group>
+          <ng-template #suffixTemplate>
+            <span [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible" nz-icon></span>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+		<nz-form-item>
+		  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>部门</nz-form-label>
+		  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+			<nz-tree-select
+			[nzNodes]="modalData.optionDepartments"
+			nzPlaceHolder="请选择归属部门"
+			formControlName="deptId"
+			nzShowSearch
+			nzDefaultExpandAll
+			nzAllowClear
+		  ></nz-tree-select>
+		  </nz-form-control>
+		</nz-form-item>
+  
+	  </div>
+  </nz-row>
+  <nz-row>
+    <div nz-col nzSpan="12"></div>
+  </nz-row>
+</form>
+
+<ng-template #combineTpl let-control>
+  <ng-container *ngIf="control.hasError('conform')">密码由6到20位大小写字母、数字和特殊字符组成</ng-container>
+  <ng-container *ngIf="control.hasError('message')">
+    {{ control.errors.message }}
+  </ng-container>
+  <ng-container *ngIf="control.hasError('required')">必填项</ng-container>
+</ng-template>

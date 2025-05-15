@@ -1,0 +1,26 @@
+.icon-select {
+  width: 360px;
+  height: 220px;
+  .icon-list {
+    height: 180px;
+    overflow-y: scroll;
+    div {
+      display: flex;
+      height: 30px;
+      margin-bottom: -5px;
+      cursor: pointer;
+      width: 50%;
+      float: left;
+    }
+    .icon {
+      height: 40px;
+      width: 20px;
+      margin-right: 3px;
+    }
+    text {
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+  }
+}
