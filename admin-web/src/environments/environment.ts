@@ -4,7 +4,7 @@
 const ip = '127.0.0.1:4201';
 const port = '80';
 
-export const localUrl = `http://127.0.0.1:4000`;
+// export const localUrl = `http://127.0.0.1:4000`;
 
 export const environment = {
   company: 'nict',
